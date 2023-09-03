@@ -18,6 +18,7 @@ def home():
     return render_template('home.html')
 
 
+
 @app.route('/predict', methods=['POST'])
 def predict():
     '''
@@ -43,6 +44,8 @@ def predict():
     prediction = mexico_model.predict(mexico_processor.transform(pd.DataFrame(data, index=[0])))[0]
 
     return render_template('home.html', prediction_text='The Home Value Is: {}'.format(prediction))
+
+
 
 
 if __name__=="__main__":
