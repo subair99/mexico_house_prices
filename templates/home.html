@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Mexico</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+<body>
+ <div class="login">
+	<h1>Mexico Home Prices</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+    	 
+    	<input type="text" name="property_type" placeholder="Property Type" required="required" />
+        <input type="text" name="borough" placeholder="Borough" required="required" />
+		<input type="text" name="surface_covered_in_m2" placeholder="Surface Covered" required="required" />
+		<input type="text" name="price_per_m2" placeholder="Price" required="required" />
+    <input type="text" name="lat" placeholder="Lat" required="required" />
+		<input type="text" name="lon" placeholder="Lon" required="required" />
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+ </div>
+</body>
+</html>
