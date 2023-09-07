@@ -19,31 +19,37 @@ def home():
 
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
-    '''
-    For rendering results on HTML GUI
-    '''
-    # Define features
-    features = [
-                 'property_type',
-                 'borough',
-                 'surface_covered_in_m2',
-                 'price_per_m2',
-                 'lat',
-                 'lon'
-                ]
 
-    # Retrive values from form
-    values = [x for x in request.form.values()]
+    if request.method == 'GET':
+        return render_template('index.html')
     
-    # Define dataframe
-    data = pd.DataFrame(dict(list(zip(features, values))), index=[0])
+    else:
 
-    # perform prediction
-    prediction = mexico_model.predict(mexico_processor.transform(pd.DataFrame(data, index=[0])))[0]
+        '''
+        For rendering results on HTML GUI
+        '''
+        # Define features
+        features = [
+                    'property_type',
+                    'borough',
+                    'surface_covered_in_m2',
+                    'price_per_m2',
+                    'lat',
+                    'lon'
+                    ]
 
-    return render_template('home.html', prediction_text='The Home Value Is: {}'.format(prediction))
+        # Retrive values from form
+        values = [x for x in request.form.values()]
+        
+        # Define dataframe
+        data = pd.DataFrame(dict(list(zip(features, values))), index=[0])
+
+        # perform prediction
+        prediction = mexico_model.predict(mexico_processor.transform(pd.DataFrame(data, index=[0])))[0]
+
+        return render_template('home.html', prediction_text='The Home Value Is: {}'.format(prediction))
 
 
 
